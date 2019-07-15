@@ -1,0 +1,33 @@
+.add-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.add-item span {
+  margin-right: 10px;
+}
+
+.add-item div {
+  width: 100%;
+  max-width: 400px;
+}
+
+.add-item input {
+  max-width: 250px;
+  width: 100%;
+  border: none;
+  border-bottom: 1.5px solid cadetblue;
+  font-size: 16px;
+  outline: none;
+}
+
+.add-item .error {
+  border-bottom-color: darkred;
+}
+
+button {
+  outline: none;
+}
