@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import './add-item.css';
+import { changeStateProp, pushStateProp } from '../../actions'
 
-const AddItem = (props) => {
+const AddItem = () => {
+
     // states
     const [item, setItem] = useState({
         isEdit: false,
         isChecked: false,
-        value: ''
+        value: '',
+        id: Math.random()
     })
+
     const [isError, setError] = useState(false)
 
     const handleInput = (name, value) => {
@@ -19,14 +23,12 @@ const AddItem = (props) => {
         })
     }
 
-
-
-    const onClickbutton = () => {
+    const onClickButton = () => {
         if (item.value) {
-            props.setItems([
-                ...props.items, item
-            ])
-            handleInput('value', '')
+            handleInput('value', '');
+
+            pushStateProp('tasks', item, 'TASKS')
+            changeStateProp('title', item.value, 'TASKS')
         } else  {
             setError(true)
         }
@@ -38,7 +40,7 @@ const AddItem = (props) => {
                 <span>Add item: </span>
                 <input type="text" className={isError ? 'error' : ''} onChange={(event) => handleInput('value', event.target.value)} value={item.value}/>
             </div>
-            <button className={'green-button'} onClick={onClickbutton}>
+            <button className={'green-button'} onClick={onClickButton}>
                 Add +
             </button>
         </div>

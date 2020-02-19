@@ -1,13 +1,15 @@
 import React from 'react';
-import Header from './scenes/Home/components/Header/header';
-import Todo from "./scenes/Home/components/Todo/todo";
+import Header from './components/Header/header';
+import Todo from './components/Todo/todo';
+import  Footer from './components/Footer/footer'
 import './App.css';
 
 function App() {
-  return (
+    return (
     <div className="App">
       <Header name={"Vlad Tereshchenko - ToDo"}/>
-      <Todo/>
+      <Todo />
+      <Footer/>
     </div>
   );
 }
