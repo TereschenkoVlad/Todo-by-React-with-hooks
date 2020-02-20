@@ -13,7 +13,7 @@ const Todo = memo(() => {
     }, [])
 
     return (
-        <div>
+        <div className={"toto-wrapper"}>
             <AddItem  setItems={setItems} />
             <AllItems setItems={setItems} />
         </div>

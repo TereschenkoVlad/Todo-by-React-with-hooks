@@ -1,0 +1,55 @@
+button, a, input {
+  outline: none;
+}
+
+.add-item {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  max-width: 500px;
+  margin: 0 auto;
+
+  span {
+    margin-right: 10px;
+  }
+
+  & > div {
+    display: flex;
+    width: 100%;
+    max-width: 500px;
+  }
+
+  input {
+    max-width: 320px;
+    width: 100%;
+    border: none;
+    border-bottom: 1.5px solid cadetblue;
+    font-size: 16px;
+    outline: none;
+
+    @media (max-width: 540px) {
+      max-width: 70%;
+    }
+  }
+
+  .green-button {
+    right: 0;
+    position: absolute;
+    background: none;
+    padding: 7px 20px;
+    border: 1.5px solid cadetblue;
+    border-radius: 20px;
+    cursor: pointer;
+
+    &:hover {
+      transition: all .2s;
+      background-color: cadetblue;
+      color: #ffffff;
+    }
+  }
+
+  .error {
+    border-bottom-color: darkred;
+  }
+}

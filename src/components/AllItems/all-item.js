@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import './all-item.css';
+import './all-item.scss';
 import { useSelector } from 'react-redux'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import store from "../../config/store";
 import {spliceStateProp, saveEditedStateProp} from '../../actions'
 
@@ -57,21 +59,33 @@ const AllItems = () => {
           }
         </div>
         {!item.isEdit
-          ? <div>
+          ? <>
             {item.isChecked
-              ? <div>
-                <span className="remove-item" onClick={() => deleteItem(index)}>X</span>
-                <input type="checkbox" defaultChecked={item.isChecked ? 'checked' : ''}
-                       onClick={() => checkedItem(item, index)}/>
+              ? <div className={"icon-cont-small"}>
+                <span className="remove-item" onClick={() => deleteItem(index)}>
+                  <FontAwesomeIcon icon={faTrashAlt} />
+                </span>
+                <div className="switch">
+                  <input type="checkbox" defaultChecked={item.isChecked ? 'checked' : ''}
+                         onClick={() => checkedItem(item, index)} id={"isCompleted-" + index} className={"switch-input"} />
+                  <label htmlFor={"isCompleted-" + index} className="switch-label">Switch</label>
+                </div>
               </div>
-              : <div>
-                <span className={'edit'} onClick={() => handleEdit(item, index)}>edit</span>
-                <span className="remove-item" onClick={() => deleteItem(index)}>X</span>
-                <input type="checkbox" defaultChecked={item.isChecked ? 'checked' : ''}
-                       onClick={() => checkedItem(item, index)}/>
+              : <div className={"icon-cont"}>
+                <span className={'edit'} onClick={() => handleEdit(item, index)}>
+                  <FontAwesomeIcon icon={faEdit}/>
+                </span>
+                <span className="remove-item" onClick={() => deleteItem(index)}>
+                  <FontAwesomeIcon icon={faTrashAlt} />
+                </span>
+                <div className="switch">
+                  <input type="checkbox" defaultChecked={item.isChecked ? 'checked' : ''}
+                         onClick={() => checkedItem(item, index)} id={"isCompleted-" + index} className={"switch-input"} />
+                  <label htmlFor={"isCompleted-" + index} className="switch-label">Switch</label>
+                </div>
               </div>
             }
-          </div>
+          </>
           : <button className="save" onClick={() => handleEdit(item, index, newValue)}>Save</button>
         }
       </div>

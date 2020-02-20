@@ -7,7 +7,7 @@ import './App.css';
 function App() {
     return (
     <div className="App">
-      <Header name={"Vlad Tereshchenko - ToDo"}/>
+      <Header name={"ToDo On Every Day"}/>
       <Todo />
       <Footer/>
     </div>

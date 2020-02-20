@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  padding: 0 10px;
 }
 
 .App-logo {
@@ -30,10 +31,4 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-.green-button {
-  padding: 7px 12px;
-  border-radius: 7px;
-  color: forestgreen;
 }
