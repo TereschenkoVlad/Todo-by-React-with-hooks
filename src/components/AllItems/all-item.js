@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import './all-item.scss';
+import React, {useState} from 'react'
+import './all-item.scss'
 import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faTrashAlt, faEllipsisV } from '@fortawesome/free-solid-svg-icons'
@@ -22,7 +22,6 @@ const AllItems = (props) => {
       spliceStateProp('tasks', index, 'TASKS')
     } else {
       spliceStateProp('shoppingList', index, 'TASKS')
-
     }
   }
 
@@ -61,6 +60,14 @@ const AllItems = (props) => {
     setIsActiveModuleItemMenu({isActive: !isActiveModuleItemMenu.isActive, index: index})
   }
 
+  const totalPrice = () => {
+    let totalResult = 0
+    allItems.forEach((item) => {
+      totalResult += parseFloat(item.price)
+    })
+    return totalResult
+  }
+
   const renderMenuItems = (item, index) => {
     return (
       <div className={"icon-cont"}>
@@ -86,7 +93,7 @@ const AllItems = (props) => {
           <span className={item.isChecked ? 'number checked' : 'number'}>{index + 1}</span>
           {!item.isEdit
             ? <><p className={item.isChecked ? 'checked' : ''}>{item.value}</p> {props.type !== 'standard' ?
-              <p className={"price"}>{item.price + ' грн.'}</p>: null} </>
+              <p className={"price"}>{item.price + ' hrn.'}</p>: null} </>
             : <><input type="text" value={newValue} onChange={(event) => setValue(event.target.value)} /> {props.type !== 'standard' ?
               <input type="number" className={"edit-price"} value={newPrice} onChange={(event) => setPrice(event.target.value)} /> : null} </>
           }
@@ -136,7 +143,12 @@ const AllItems = (props) => {
             return renderItem(item, index)
         }
       })}
-
+      {props.type !== 'standard' &&
+      <div className="total-result">
+        <span className={"total-price-label"}>Total:</span>
+        <span className={"total-price-number"}>{`${totalPrice() + ' hrn.'}`}</span>
+      </div>
+      }
     </div>
   );
 }

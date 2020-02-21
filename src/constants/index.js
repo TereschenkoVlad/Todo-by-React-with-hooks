@@ -31,6 +31,6 @@ export const SHOP_LIST = [
     value: 'Test Shop',
     isEdit: false,
     isChecked: false,
-    price: 0
+    price: NaN
   }
 ]

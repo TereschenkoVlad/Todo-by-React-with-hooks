@@ -1,3 +1,5 @@
+@import "../../assets/variables";
+
 .items-container {
   padding: 40px 0 ;
   max-width: 500px;
@@ -32,7 +34,7 @@
     input {
       width: 100%;
       border: none;
-      border-bottom: 1.5px solid slategrey;
+      border-bottom: 1.5px solid $main-color;
       font-size: 14px;
 
       &.edit-price {
@@ -53,7 +55,7 @@
   .save {
     background: none;
     padding: 5px 15px;
-    border: 1px solid cadetblue;
+    border: 1px solid $main-color;
     border-radius: 20px;
     cursor: pointer;
   }
@@ -62,11 +64,11 @@
     padding: 15px 20px;
     color: #ffffff;
     font-size: 20px;
-    background-color: cadetblue;
+    background-color: $main-color;
     margin-right: 20px;
 
     &.checked {
-      background-color: slategray;
+      background-color: $secondary-c;
       text-decoration: none;
     }
   }
@@ -90,7 +92,7 @@
     margin-left: 10px;
     margin-right: 10px;
     font-size: 16px;
-    color: #707070;
+    color: $gray-c;
     cursor: pointer;
 
     &:hover {
@@ -100,7 +102,7 @@
 
   .edit {
     font-size: 16px;
-    color: #707070;
+    color: $gray-c;
     cursor: pointer;
 
     &:hover {
@@ -116,6 +118,20 @@
 
   .checked {
     text-decoration: line-through;
+  }
+}
+
+.total-result {
+  text-align: right;
+  padding: 5px;
+  background-color: rgba($main-color, 0.1);
+
+  .total-price-label {
+    margin-right: 10px;
+  }
+
+  .total-price-number {
+    margin-right: 40px;
   }
 }
 
@@ -214,7 +230,7 @@
   transition: left 0.25s ease;
 }
 .switch-input:checked + .switch-label::before {
-  background-color: slategray;
+  background-color: $secondary-c;
 }
 .switch-input:checked + .switch-label::after {
   left: 16px;

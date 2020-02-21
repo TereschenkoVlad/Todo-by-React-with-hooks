@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import './add-item.scss';
-import {changeStateProp, pushStateProp} from '../../actions'
+import React, { useState } from 'react';
+import './add-item.scss'
+import { pushStateProp } from '../../actions'
 
 const AddItem = (props) => {
 
@@ -14,7 +14,7 @@ const AddItem = (props) => {
     isEdit: false,
     isChecked: false,
     value: '',
-    price: 0,
+    price: NaN,
     id: Math.random()
   }
 
@@ -32,17 +32,30 @@ const AddItem = (props) => {
     })
   }
 
-  const onClickButton = () => {
-    if (item.value || item.price) {
-      handleInput('value', '');
+  const handleInputPrice = (name, value) => {
 
+    if (item.value  && item.price) {
+      setError(false)
+    }
+
+    setItem({
+      ...item, [name]: +value
+    })
+  }
+
+  const onClickButton = () => {
+    if (item.value) {
       if (props.type === 'standard') {
         pushStateProp('tasks', item, 'TASKS')
+        handleInput('value', '');
       } else  {
-        handleInput('price', '')
-        pushStateProp('shoppingList', item, 'TASKS')
+        if (item.price) {
+          handleInput('price', NaN)
+          pushStateProp('shoppingList', item, 'TASKS')
+        } else {
+          setError(true)
+        }
       }
-
     } else {
       setError(true)
     }
@@ -58,7 +71,7 @@ const AddItem = (props) => {
             <input type="text" className={isError ? 'error' : ''}
                    onChange={(event) => handleInput('value', event.target.value)} value={item.value}
                    placeholder={"Name"} />
-            <input type="number" className={"price-input"} placeholder={"Price"} onChange={(event) => handleInput('price', event.target.value)} />
+            <input type="number" className={`${isError ? 'price-input error' : 'price-input'}`} placeholder={"Price"} value={item.price} onChange={(event) => handleInputPrice('price', event.target.value)} />
           </>
           :
           <input type="text" className={isError ? 'error' : ''}
