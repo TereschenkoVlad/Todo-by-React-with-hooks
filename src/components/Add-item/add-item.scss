@@ -52,4 +52,26 @@ button, a, input {
   .error {
     border-bottom-color: darkred;
   }
+
+  .shopping-list {
+    input {
+      max-width: 250px;
+      margin-right: 10px;
+
+      &.price-input {
+        max-width: 65px;
+        margin-right: 0;
+      }
+    }
+
+    @media (max-width: 540px) {
+      input {
+        max-width: 50%;
+      }
+
+      span {
+        display: none;
+      }
+    }
+  }
 }

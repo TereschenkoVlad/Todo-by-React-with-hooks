@@ -1,31 +1,29 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import './all-item.scss';
 import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import { faEdit, faTrashAlt, faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import store from "../../config/store";
 import {spliceStateProp, saveEditedStateProp} from '../../actions'
 
-const AllItems = () => {
+const AllItems = (props) => {
 
   const [newValue, setValue] = useState('')
-  const [user, setUser] = useState()
-  const allItems = useSelector(state => state.tasks.tasks)
+  const [newPrice, setPrice] = useState(0)
+  const [isActiveModuleItemMenu, setIsActiveModuleItemMenu] = useState(false)
+
+  let storePathCall = props.type === 'standard' ? state => state.tasks.tasks
+    : state => state.tasks.shoppingList
+  const allItems = useSelector(storePathCall)
   const filterType = useSelector(state => state.tasks.filterType)
 
-  useEffect(() => {
-    async function fetchUser() {
-      const response = await fetch('https://api.randomuser.me/')
-      const data = await response.json()
-      const [userItem] = data.results
-      setUser(userItem)
-    }
-
-    fetchUser()
-  }, [allItems.length])
-
   const deleteItem = (index) => {
-    spliceStateProp('tasks', index, 'TASKS')
+    if (props.type === 'standard') {
+      spliceStateProp('tasks', index, 'TASKS')
+    } else {
+      spliceStateProp('shoppingList', index, 'TASKS')
+
+    }
   }
 
   const handleEdit = (item, index, newValue) => {
@@ -33,8 +31,14 @@ const AllItems = () => {
       if (i === index) {
         element.isEdit = !element.isEdit
         setValue(item.value)
-        if (newValue) {
+        if (newValue && props.type === 'standard') {
           saveEditedStateProp('tasks', newValue, index, 'value', 'TASKS')
+        } else {
+          saveEditedStateProp('shoppingList', newValue, index, 'value', 'TASKS')
+        }
+
+        if (newPrice) {
+          saveEditedStateProp('shoppingList', newPrice, index, 'price', 'TASKS')
         }
       }
     })
@@ -43,9 +47,36 @@ const AllItems = () => {
   const checkedItem = (item, index) => {
     allItems.find((i, ind) => {
       if (ind === index) {
-        saveEditedStateProp('tasks', !item.isChecked, index, 'isChecked', 'TASKS')
+
+        if (props.type === 'standard') {
+          saveEditedStateProp('tasks', !item.isChecked, index, 'isChecked', 'TASKS')
+        } else  {
+          saveEditedStateProp('shoppingList', !item.isChecked, index, 'isChecked', 'TASKS')
+        }
       }
     })
+  }
+
+  const itemMenuClick = () => {
+    setIsActiveModuleItemMenu(!isActiveModuleItemMenu)
+  }
+
+  const renderMenuItems = (item, index) => {
+    return (
+      <div className={"icon-cont"}>
+                  <span className={'edit'} onClick={() => handleEdit(item, index)}>
+                    <FontAwesomeIcon icon={faEdit}/>
+                  </span>
+        <span className="remove-item" onClick={() => deleteItem(index)}>
+                    <FontAwesomeIcon icon={faTrashAlt} />
+                  </span>
+        <div className="switch">
+          <input type="checkbox" defaultChecked={item.isChecked}
+                 onClick={() => checkedItem(item, index)} id={"isCompleted-" + index} className={"switch-input"} />
+          <label htmlFor={"isCompleted-" + index} className="switch-label">Switch</label>
+        </div>
+      </div>
+    )
   }
 
   const renderItem = (item, index) => {
@@ -54,8 +85,10 @@ const AllItems = () => {
         <div className={'item-left-cont'}>
           <span className={item.isChecked ? 'number checked' : 'number'}>{index + 1}</span>
           {!item.isEdit
-            ? <p className={item.isChecked ? 'checked' : ''}>{item.value}</p>
-            : <input type="text" value={newValue} onChange={(event) => setValue(event.target.value)}/>
+            ? <><p className={item.isChecked ? 'checked' : ''}>{item.value}</p> {props.type !== 'standard' ?
+              <p className={"price"}>{item.price + ' грн.'}</p>: null} </>
+            : <><input type="text" value={newValue} onChange={(event) => setValue(event.target.value)} /> {props.type !== 'standard' ?
+              <input type="number" className={"edit-price"} value={newPrice} onChange={(event) => setPrice(event.target.value)} /> : null} </>
           }
         </div>
         {!item.isEdit
@@ -66,24 +99,21 @@ const AllItems = () => {
                   <FontAwesomeIcon icon={faTrashAlt} />
                 </span>
                 <div className="switch">
-                  <input type="checkbox" defaultChecked={item.isChecked ? 'checked' : ''}
+                  <input type="checkbox" defaultChecked={item.isChecked}
                          onClick={() => checkedItem(item, index)} id={"isCompleted-" + index} className={"switch-input"} />
                   <label htmlFor={"isCompleted-" + index} className="switch-label">Switch</label>
                 </div>
               </div>
-              : <div className={"icon-cont"}>
-                <span className={'edit'} onClick={() => handleEdit(item, index)}>
-                  <FontAwesomeIcon icon={faEdit}/>
-                </span>
-                <span className="remove-item" onClick={() => deleteItem(index)}>
-                  <FontAwesomeIcon icon={faTrashAlt} />
-                </span>
-                <div className="switch">
-                  <input type="checkbox" defaultChecked={item.isChecked ? 'checked' : ''}
-                         onClick={() => checkedItem(item, index)} id={"isCompleted-" + index} className={"switch-input"} />
-                  <label htmlFor={"isCompleted-" + index} className="switch-label">Switch</label>
-                </div>
-              </div>
+              : window.innerWidth > 540 ?
+                <>
+                  {renderMenuItems(item, index)}
+                </>
+                : <>
+                  <span className={"menu-item"} onClick={itemMenuClick}><FontAwesomeIcon icon={faEllipsisV}/></span>
+                  {isActiveModuleItemMenu &&  <div className={"modal-menu-cont"}>
+                    {renderMenuItems(item, index)}
+                  </div> }
+                </>
             }
           </>
           : <button className="save" onClick={() => handleEdit(item, index, newValue)}>Save</button>
@@ -93,7 +123,7 @@ const AllItems = () => {
   }
 
   return (
-    <div className={'items-container'}>
+    <div className={`items-container  ${props.type !== 'standard' ? 'shopping-list' : ''}`}>
       {allItems && allItems.map((item, index) => {
         switch (filterType) {
           case 'Active':
@@ -106,7 +136,7 @@ const AllItems = () => {
             return renderItem(item, index)
         }
       })}
-      <p>{(user) ? `${user.name.first} ${user.name.last}` : ''}</p>
+
     </div>
   );
 }

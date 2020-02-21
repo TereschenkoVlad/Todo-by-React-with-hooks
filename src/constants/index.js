@@ -24,3 +24,13 @@ export const TASKS = [
         isChecked: false,
     },
 ]
+
+export const SHOP_LIST = [
+  {
+    id: 1,
+    value: 'Test Shop',
+    isEdit: false,
+    isChecked: false,
+    price: 0
+  }
+]

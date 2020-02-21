@@ -1,23 +1,23 @@
-import React, { useState, memo, useEffect } from 'react';
-import { useSelector } from 'react-redux'
+import React, { memo } from 'react';
 import './todo.css';
 import AllItems from '../AllItems/all-item'
 import AddItem from '../Add-item/add-item'
+import Footer from '../Footer/footer'
+import { Link } from "react-router-dom";
 
-const Todo = memo(() => {
-    const data = useSelector(state => state.tasks.tasks)
-    const [items, setItems] = useState([])
+const Todo = memo((props) => {
 
-    useEffect(() => {
-        setItems(data)
-    }, [])
-
-    return (
-        <div className={"toto-wrapper"}>
-            <AddItem  setItems={setItems} />
-            <AllItems setItems={setItems} />
-        </div>
-    )
+  return (
+    <div className={"toto-wrapper"}>
+      <AddItem type={props.type} />
+      <Footer/>
+      <AllItems type={props.type} />
+      {props.type === 'standard' ?
+        <Link to={"/shopping-list"}>Shopping List</Link>
+        : <Link to={"/"}>ToDo List</Link>
+      }
+    </div>
+  )
 })
 
 export default Todo;
