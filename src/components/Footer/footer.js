@@ -6,7 +6,6 @@ const Footer = () => {
 
     return (
         <footer className={"footer"}>
-          <span>Show:</span>
           <div className="buttons-container">
             <FilterLink buttonType={'All'} />
             <FilterLink buttonType={'Active'} />

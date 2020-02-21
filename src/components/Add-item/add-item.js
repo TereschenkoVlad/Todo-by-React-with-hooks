@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './add-item.scss'
 import { pushStateProp } from '../../actions'
 
@@ -19,12 +19,14 @@ const AddItem = (props) => {
   }
 
   const [item, setItem] = useState(itemObj)
-
   const [isError, setError] = useState(false)
 
-  const handleInput = (name, value) => {
+  useEffect(() => {
+    setItem(itemObj)
+  }, [props.type])
 
-    if (item.value ) {
+  const handleInput = (name, value) => {
+    if (item.value) {
       setError(false)
     }
     setItem({
@@ -39,23 +41,21 @@ const AddItem = (props) => {
     }
 
     setItem({
-      ...item, [name]: +value
+      isEdit: false,
+      isChecked: false,
+      value: '',
+      id: Math.random(),
+      [name]: value
     })
   }
 
   const onClickButton = () => {
-    if (item.value) {
-      if (props.type === 'standard') {
-        pushStateProp('tasks', item, 'TASKS')
-        handleInput('value', '');
-      } else  {
-        if (item.price) {
-          handleInput('price', NaN)
-          pushStateProp('shoppingList', item, 'TASKS')
-        } else {
-          setError(true)
-        }
-      }
+    if (item.value && item.price && props.type !== 'standard') {
+      handleInputPrice('price', '')
+      pushStateProp('shoppingList', item, 'TASKS')
+    } else if (item.value && !item.price && props.type === 'standard') {
+      pushStateProp('tasks', item, 'TASKS')
+      handleInput('value', '')
     } else {
       setError(true)
     }
@@ -71,7 +71,7 @@ const AddItem = (props) => {
             <input type="text" className={isError ? 'error' : ''}
                    onChange={(event) => handleInput('value', event.target.value)} value={item.value}
                    placeholder={"Name"} />
-            <input type="number" className={`${isError ? 'price-input error' : 'price-input'}`} placeholder={"Price"} value={item.price} onChange={(event) => handleInputPrice('price', event.target.value)} />
+            <input type="number" className={`${isError ? 'price-input error' : 'price-input'}`} placeholder={"Price"} value={!isNaN(item.price) ? item.price : ''} onChange={(event) => handleInput('price', event.target.value)} />
           </>
           :
           <input type="text" className={isError ? 'error' : ''}
