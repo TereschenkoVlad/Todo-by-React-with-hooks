@@ -76,6 +76,7 @@
       .number {
         font-size: 18px;
         padding: 10px 15px;
+        margin-right: 10px;
       }
       p {
         font-size: 14px;
@@ -135,13 +136,15 @@
 
   .modal-menu-cont {
     position: absolute;
+    z-index: 1;
     top: 35px;
     right: 0;
     width: 50px;
     padding: 5px;
-    height: 66px;
+    height: 76px;
     box-shadow: 0 0 5px rgba(0, 0, 0, .25);
     border-radius: 3px;
+    background-color: #ffffff;
 
     .icon-cont {
       display: flex;

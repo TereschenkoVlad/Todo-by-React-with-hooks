@@ -23,7 +23,8 @@ const AddItem = (props) => {
   const [isError, setError] = useState(false)
 
   const handleInput = (name, value) => {
-    if (item.value) {
+
+    if (item.value ) {
       setError(false)
     }
     setItem({
@@ -31,26 +32,14 @@ const AddItem = (props) => {
     })
   }
 
-  const handleInputPrice = (name, value) => {
-    if (props.type !== 'standard') {
-      if (item.price) {
-        setError(false)
-      }
-
-      setItem({
-        ...item, [name]: value
-      })
-    }
-  }
-
   const onClickButton = () => {
-    if (item.value) {
+    if (item.value || item.price) {
       handleInput('value', '');
 
       if (props.type === 'standard') {
         pushStateProp('tasks', item, 'TASKS')
       } else  {
-        handleInputPrice('price', '')
+        handleInput('price', '')
         pushStateProp('shoppingList', item, 'TASKS')
       }
 
@@ -61,7 +50,7 @@ const AddItem = (props) => {
 
   return (
     <div className={'add-item'}>
-      <div className={props.type === 'standard' ? "standard" : "shopping-list"}>
+      <div className={props.type === 'standard' ? "standard" : "shopping-list-new"}>
         <span>New item: </span>
         {props.type !== 'standard'
           ?
@@ -69,7 +58,7 @@ const AddItem = (props) => {
             <input type="text" className={isError ? 'error' : ''}
                    onChange={(event) => handleInput('value', event.target.value)} value={item.value}
                    placeholder={"Name"} />
-            <input type="number" className={"price-input"} placeholder={"Price"} onChange={(event) => handleInputPrice('price', event.target.value)} />
+            <input type="number" className={"price-input"} placeholder={"Price"} onChange={(event) => handleInput('price', event.target.value)} />
           </>
           :
           <input type="text" className={isError ? 'error' : ''}

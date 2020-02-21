@@ -10,7 +10,7 @@ const AllItems = (props) => {
 
   const [newValue, setValue] = useState('')
   const [newPrice, setPrice] = useState(0)
-  const [isActiveModuleItemMenu, setIsActiveModuleItemMenu] = useState(false)
+  const [isActiveModuleItemMenu, setIsActiveModuleItemMenu] = useState({isActive: false, index: NaN})
 
   let storePathCall = props.type === 'standard' ? state => state.tasks.tasks
     : state => state.tasks.shoppingList
@@ -57,8 +57,8 @@ const AllItems = (props) => {
     })
   }
 
-  const itemMenuClick = () => {
-    setIsActiveModuleItemMenu(!isActiveModuleItemMenu)
+  const itemMenuClick = (index) => {
+    setIsActiveModuleItemMenu({isActive: !isActiveModuleItemMenu.isActive, index: index})
   }
 
   const renderMenuItems = (item, index) => {
@@ -109,8 +109,8 @@ const AllItems = (props) => {
                   {renderMenuItems(item, index)}
                 </>
                 : <>
-                  <span className={"menu-item"} onClick={itemMenuClick}><FontAwesomeIcon icon={faEllipsisV}/></span>
-                  {isActiveModuleItemMenu &&  <div className={"modal-menu-cont"}>
+                  <span className={"menu-item"} onClick={() => itemMenuClick(index)}><FontAwesomeIcon icon={faEllipsisV}/></span>
+                  {(isActiveModuleItemMenu.isActive && isActiveModuleItemMenu.index === index) &&  <div className={"modal-menu-cont"}>
                     {renderMenuItems(item, index)}
                   </div> }
                 </>
