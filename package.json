@@ -1,7 +1,7 @@
 {
   "homepage": "https://tereschenkovlad.github.io/Todo-by-React-with-hooks/",
-  "name": "react-app",
-  "version": "0.1.0",
+  "name": "todos",
+  "version": "0.1.1",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.27",
