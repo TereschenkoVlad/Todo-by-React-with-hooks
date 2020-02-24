@@ -1,9 +1,9 @@
-import React, { memo } from 'react';
-import './todo.css';
+import React, { memo } from 'react'
+import './todo.css'
 import AllItems from '../AllItems/all-item'
 import AddItem from '../Add-item/add-item'
 import Footer from '../Footer/footer'
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 
 const Todo = memo((props) => {
 

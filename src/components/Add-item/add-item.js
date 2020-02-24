@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react'
 import './add-item.scss'
 import { pushStateProp } from '../../actions'
 
 const AddItem = (props) => {
 
   // states
-  let itemObj = props.type === 'standard' ? {
+  const itemObj = props.type === 'standard' ? {
     isEdit: false,
     isChecked: false,
     value: '',
@@ -20,10 +20,6 @@ const AddItem = (props) => {
 
   const [item, setItem] = useState(itemObj)
   const [isError, setError] = useState(false)
-
-  useEffect(() => {
-    setItem(itemObj)
-  }, [props.type])
 
   const handleInput = (name, value) => {
     if (item.value) {

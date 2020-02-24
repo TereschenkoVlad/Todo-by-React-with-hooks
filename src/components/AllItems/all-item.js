@@ -3,7 +3,7 @@ import './all-item.scss'
 import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faTrashAlt, faEllipsisV } from '@fortawesome/free-solid-svg-icons'
-import store from "../../config/store";
+import store from "../../config/store"
 import {spliceStateProp, saveEditedStateProp} from '../../actions'
 
 const AllItems = (props) => {
@@ -26,13 +26,14 @@ const AllItems = (props) => {
   }
 
   const handleEdit = (item, index, newValue) => {
-    allItems.find((element, i) => {
+    allItems.forEach((element, i) => {
       if (i === index) {
         element.isEdit = !element.isEdit
         setValue(item.value)
+        setPrice(item.price)
         if (newValue && props.type === 'standard') {
           saveEditedStateProp('tasks', newValue, index, 'value', 'TASKS')
-        } else {
+        } else if (newValue && props.type !== 'standard') {
           saveEditedStateProp('shoppingList', newValue, index, 'value', 'TASKS')
         }
 
@@ -44,7 +45,7 @@ const AllItems = (props) => {
   }
 
   const checkedItem = (item, index) => {
-    allItems.find((i, ind) => {
+    allItems.forEach((i, ind) => {
       if (ind === index) {
 
         if (props.type === 'standard') {
@@ -63,7 +64,21 @@ const AllItems = (props) => {
   const totalPrice = () => {
     let totalResult = 0
     allItems.forEach((item) => {
-      totalResult += parseFloat(item.price)
+      let itemPrice = item.price ? item.price : 0
+      switch (filterType) {
+        case 'Active':
+          if (!item.isChecked) {
+            totalResult += parseFloat(itemPrice)
+          }
+          break
+        case 'Completed':
+          if (item.isChecked) {
+            totalResult += parseFloat(itemPrice)
+          }
+          break
+        default:
+          totalResult += parseFloat(itemPrice)
+      }
     })
     return totalResult
   }
@@ -93,7 +108,7 @@ const AllItems = (props) => {
           <span className={item.isChecked ? 'number checked' : 'number'}>{index + 1}</span>
           {!item.isEdit
             ? <><p className={item.isChecked ? 'checked' : ''}>{item.value}</p> {props.type !== 'standard' ?
-              <p className={"price"}>{item.price + ' hrn.'}</p>: null} </>
+              <p className={"price"}>{`${(item.price ? item.price : 0) + ' грн.'}`}</p>: null} </>
             : <><input type="text" value={newValue} onChange={(event) => setValue(event.target.value)} /> {props.type !== 'standard' ?
               <input type="number" className={"edit-price"} value={newPrice} onChange={(event) => setPrice(event.target.value)} /> : null} </>
           }
@@ -134,11 +149,15 @@ const AllItems = (props) => {
       {allItems && allItems.map((item, index) => {
         switch (filterType) {
           case 'Active':
-            if (!item.isChecked) return renderItem(item, index)
-            break
+            if (!item.isChecked) {
+              return renderItem(item, index)
+            } else {
+              return null
+            }
           case 'Completed':
-            if (item.isChecked) return renderItem(item, index)
-            break
+            if (item.isChecked) {
+              return renderItem(item, index)
+            }  else { return null }
           default:
             return renderItem(item, index)
         }
@@ -146,10 +165,10 @@ const AllItems = (props) => {
       {props.type !== 'standard' &&
       <div className="total-result">
         <span className={"total-price-label"}>Total:</span>
-        <span className={"total-price-number"}>{`${totalPrice() + ' hrn.'}`}</span>
+        <span className={"total-price-number"}>{`${totalPrice() + ' грн.'}`}</span>
       </div>
       }
     </div>
-  );
+  )
 }
 export default AllItems;
