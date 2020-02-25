@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import './add-item.scss'
 import { pushStateProp } from '../../actions'
 

@@ -21,7 +21,7 @@ const AllItems = (props) => {
     if (props.type === 'standard') {
       spliceStateProp('tasks', index, 'TASKS')
     } else {
-      spliceStateProp('shoppingList', index, 'TASKS')
+      spliceStateProp('shoppingList', index, 'shoppingList')
     }
   }
 

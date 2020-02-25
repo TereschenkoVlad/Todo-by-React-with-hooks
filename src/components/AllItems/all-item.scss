@@ -1,5 +1,9 @@
 @import "../../assets/variables";
 
+.items-container .shopping-list {
+  $main-color: orange;
+}
+
 .items-container {
   padding: 40px 0 ;
   max-width: 500px;
