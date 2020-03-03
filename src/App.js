@@ -1,8 +1,9 @@
-import React from 'react';
-import Header from './components/Header/header';
-import Todo from './components/Todo/todo';
-import './App.scss';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import React from 'react'
+import Header from './components/Header/header'
+import Todo from './components/Todo/todo'
+import './App.scss'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import TestComponent from './components/TestComponent/test-component'
 
 function App() {
     return (
@@ -19,8 +20,9 @@ function App() {
             </Route>
           </Switch>
         </Router>
+        <TestComponent />
       </div>
-  );
+    );
 }
 
 export default App;

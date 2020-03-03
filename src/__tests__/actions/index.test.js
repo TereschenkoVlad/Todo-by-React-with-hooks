@@ -24,16 +24,48 @@ describe('testing of action creators', () => {
     expect(actions).toEqual(expectedActions)
   })
 
-  test('save edited item to the store action (value)', () => {
-    store.dispatch(Actions.saveEditedStateProp('tasks', 'Learn math and an other homework', 2, 'value', 'TASKS'))
+  test('save edited item to the store action (isChecked)', () => {
+    store.dispatch(Actions.saveEditedStateProp('tasks', true, 2, 'isChecked', 'TASKS'))
     const actions = store.getActions()
     const expectedActions = [
       { type: 'TASKS_SAVE_EDITED_STATE_PROP',
         state: {
           prop: 'tasks',
-          value: 'Learn math and an other homework',
+          value: true,
+          index: 2,
+          itemProp: 'isChecked'
+        }
+      },
+    ]
+    expect(actions).toEqual(expectedActions)
+  })
+
+  test('save edited item to the store action (value)', () => {
+    store.dispatch(Actions.saveEditedStateProp('tasks', 'FfFfFfF', 2, 'value', 'TASKS'))
+    const actions = store.getActions()
+    const expectedActions = [
+      { type: 'TASKS_SAVE_EDITED_STATE_PROP',
+        state: {
+          prop: 'tasks',
+          value: 'FfFfFfF',
           index: 2,
           itemProp: 'value'
+        }
+      },
+    ]
+    expect(actions).toEqual(expectedActions)
+  })
+
+  test('save edited item to the store action after save (price)', () => {
+    store.dispatch(Actions.saveEditedStateProp('shoppingList', 18.30, 0, 'price', 'TASKS'))
+    const actions = store.getActions()
+    const expectedActions = [
+      { type: 'TASKS_SAVE_EDITED_STATE_PROP',
+        state: {
+          prop: 'shoppingList',
+          value: 18.30,
+          index: 0,
+          itemProp: 'price'
         }
       },
     ]
