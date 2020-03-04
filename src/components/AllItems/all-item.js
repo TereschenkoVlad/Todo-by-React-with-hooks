@@ -3,18 +3,18 @@ import './all-item.scss'
 import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faTrashAlt, faEllipsisV } from '@fortawesome/free-solid-svg-icons'
-import store from "../../config/store"
 import { spliceStateProp, saveEditedStateProp } from '../../actions'
 import getCourses from '../../services/course'
+import { TranslateTexts } from "../../constants";
 
 const AllItems = (props) => {
 
+  const TranslatedTexts = TranslateTexts(useSelector((state) => state.tasks.language))
   const [newValue, setValue] = useState('')
   const [newPrice, setPrice] = useState(0)
   const [courses, setCourses] = useState([])
   const [selCourse, setSelCourse] = useState('UAH')
   const [isActiveModuleItemMenu, setIsActiveModuleItemMenu] = useState({isActive: false, index: NaN})
-
 
   let getCoursesList = async () => {
     let coursesList = await getCourses()
@@ -169,7 +169,7 @@ const AllItems = (props) => {
                 </>
             }
           </>
-          : <button className="save" onClick={() => handleEdit(item, index, newValue)}>Save</button>
+          : <button className="save" onClick={() => handleEdit(item, index, newValue)}>{TranslatedTexts.saveItemBtn}</button>
         }
       </div>
     )
@@ -195,7 +195,7 @@ const AllItems = (props) => {
       })}
       {props.type !== 'standard' &&
       <div className="total-result">
-        <span className={"total-price-label"}>Total:</span>
+        <span className={"total-price-label"}>{TranslatedTexts.totalPriceLabel}:</span>
         <span className={"total-price-number"}>{`${totalPrice(selCourse)}`}</span>
         <select className="courses-money" onChange={(event) => totalPrice(event.target.value)}>
           {courses.map((item, index) => {

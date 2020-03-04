@@ -5,7 +5,7 @@ export const SAVE_EDITED_STATE_PROP = '_SAVE_EDITED_STATE_PROP'
 export const SPLICE_STATE_PROP = '_SPLICE_STATE_PROP'
 
 export function changeStateProp (prop, value, reducer) {
-    return store.dispatch({
+  return store.dispatch({
             type: reducer.toUpperCase() + CHANGE_STATE_PROP,
             state: {
                 prop: prop,

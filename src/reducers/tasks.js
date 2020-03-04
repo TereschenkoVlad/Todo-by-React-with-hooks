@@ -7,7 +7,8 @@ const REDUCER = 'TASKS'
 const initialState = {
   tasks: TASKS,
   filterType: 'All',
-  shoppingList : SHOP_LIST
+  shoppingList : SHOP_LIST,
+  language: 'EN'
 }
 
 export default function tasks(state = initialState, action) {

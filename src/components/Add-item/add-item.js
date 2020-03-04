@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import './add-item.scss'
 import { pushStateProp } from '../../actions'
+import { TranslateTexts } from "../../constants"
+import {useSelector} from "react-redux"
 
 const AddItem = (props) => {
 
+  const TranslatedTexts = TranslateTexts(useSelector((state) => state.tasks.language))
   // states
   const itemObj = props.type === 'standard' ? {
     isEdit: false,
@@ -60,14 +63,14 @@ const AddItem = (props) => {
   return (
     <div className={'add-item'}>
       <div className={props.type === 'standard' ? "standard" : "shopping-list-new"}>
-        <span>New item: </span>
+        <span>{TranslatedTexts.addItemLabel}: </span>
         {props.type !== 'standard'
           ?
           <>
             <input type="text" className={isError ? 'error' : ''}
                    onChange={(event) => handleInput('value', event.target.value)} value={item.value}
-                   placeholder={"Name"} />
-            <input type="number" className={`${isError ? 'price-input error' : 'price-input'}`} placeholder={"Price"} value={!isNaN(item.price) ? item.price : ''} onChange={(event) => handleInput('price', event.target.value)} />
+                   placeholder={TranslatedTexts.placeholderName} />
+            <input type="number" className={`${isError ? 'price-input error' : 'price-input'}`} placeholder={TranslatedTexts.placeholderPrice} value={!isNaN(item.price) ? item.price : ''} onChange={(event) => handleInput('price', event.target.value)} />
           </>
           :
           <input type="text" className={isError ? 'error' : ''}
@@ -75,7 +78,7 @@ const AddItem = (props) => {
         }
       </div>
       <button className={'green-button'} onClick={onClickButton}>
-        Add +
+        {TranslatedTexts.addItemBtn}
       </button>
     </div>
 

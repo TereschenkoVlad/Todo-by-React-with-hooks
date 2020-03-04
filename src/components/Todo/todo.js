@@ -4,8 +4,12 @@ import AllItems from '../AllItems/all-item'
 import AddItem from '../Add-item/add-item'
 import FiltersBlock from '../FiltersBlock/filters-block'
 import { Link } from "react-router-dom"
+import { TranslateTexts } from '../../constants'
+import store from "../../config/store";
+import {useSelector} from "react-redux"
 
 const Todo = memo((props) => {
+  const TranslatedTexts = TranslateTexts(useSelector(state => state.tasks.language))
 
   return (
     <div className={"toto-wrapper"}>
@@ -13,8 +17,8 @@ const Todo = memo((props) => {
       <FiltersBlock/>
       <AllItems type={props.type} />
       {props.type === 'standard' ?
-        <Link to={"/shopping-list"}>Shopping List</Link>
-        : <Link to={"/"}>ToDo List</Link>
+        <Link to={"/shopping-list"}>{TranslatedTexts.shoppingListTextLink}</Link>
+        : <Link to={"/"}>{TranslatedTexts.todoTextLink}</Link>
       }
     </div>
   )
