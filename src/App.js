@@ -3,7 +3,7 @@ import Header from './components/Header/header'
 import Todo from './components/Todo/todo'
 import './App.scss'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import TestComponent from './components/TestComponent/test-component'
+import Footer from './components/Footer/footer'
 
 function App() {
     return (
@@ -20,7 +20,7 @@ function App() {
             </Route>
           </Switch>
         </Router>
-        <TestComponent />
+        <Footer/>
       </div>
     );
 }

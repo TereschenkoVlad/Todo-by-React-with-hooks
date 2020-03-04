@@ -1,16 +1,37 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import './all-item.scss'
 import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faTrashAlt, faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import store from "../../config/store"
-import {spliceStateProp, saveEditedStateProp} from '../../actions'
+import { spliceStateProp, saveEditedStateProp } from '../../actions'
+import getCourses from '../../services/course'
 
 const AllItems = (props) => {
 
   const [newValue, setValue] = useState('')
   const [newPrice, setPrice] = useState(0)
+  const [courses, setCourses] = useState([])
+  const [selCourse, setSelCourse] = useState('UAH')
   const [isActiveModuleItemMenu, setIsActiveModuleItemMenu] = useState({isActive: false, index: NaN})
+
+
+  let getCoursesList = async () => {
+    let coursesList = await getCourses()
+    coursesList.unshift({
+      ccy: 'UAH',
+      base_ccy: 'UAH',
+      buy: '1',
+      sale: '1'
+    })
+    setCourses(coursesList)
+  }
+
+  useEffect(() => {
+    if (props.type !== 'standard') {
+      getCoursesList()
+    }
+  }, [])
 
   let storePathCall = props.type === 'standard' ? state => state.tasks.tasks
     : state => state.tasks.shoppingList
@@ -21,7 +42,7 @@ const AllItems = (props) => {
     if (props.type === 'standard') {
       spliceStateProp('tasks', index, 'TASKS')
     } else {
-      spliceStateProp('shoppingList', index, 'shoppingList')
+      spliceStateProp('shoppingList', index, 'TASKS')
     }
   }
 
@@ -61,7 +82,7 @@ const AllItems = (props) => {
     setIsActiveModuleItemMenu({isActive: !isActiveModuleItemMenu.isActive, index: index})
   }
 
-  const totalPrice = () => {
+  const totalPrice = (course = 'UAH') => {
     let totalResult = 0
     allItems.forEach((item) => {
       let itemPrice = item.price ? item.price : 0
@@ -80,6 +101,16 @@ const AllItems = (props) => {
           totalResult += parseFloat(itemPrice)
       }
     })
+
+    if (courses.length && course) {
+      let equal = parseFloat(courses.find((item) => item.ccy === course).buy)
+      totalResult = (totalResult / equal).toFixed(2)
+
+      if (course !== selCourse) {
+        setSelCourse(course)
+      }
+    }
+
     return totalResult
   }
 
@@ -165,7 +196,16 @@ const AllItems = (props) => {
       {props.type !== 'standard' &&
       <div className="total-result">
         <span className={"total-price-label"}>Total:</span>
-        <span className={"total-price-number"}>{`${totalPrice() + ' грн.'}`}</span>
+        <span className={"total-price-number"}>{`${totalPrice(selCourse)}`}</span>
+        <select className="courses-money" onChange={(event) => totalPrice(event.target.value)}>
+          {courses.map((item, index) => {
+            return (
+              <option key={index + 1} value={item.ccy}>
+                {item.ccy}
+              </option>
+            )
+          })}
+        </select>
       </div>
       }
     </div>

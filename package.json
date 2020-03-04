@@ -43,7 +43,9 @@
     "jest": "^24.7.1",
     "node-sass": "^4.13.1",
     "react-router-dom": "^5.1.2",
-    "redux-mock-store": "^1.5.4"
+    "react-slick": "^0.25.2",
+    "redux-mock-store": "^1.5.4",
+    "slick-carousel": "^1.8.1"
   },
   "jest": {
     "watchPathIgnorePatterns": [

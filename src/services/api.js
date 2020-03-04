@@ -5,4 +5,9 @@ const instance = axios.create({
   responseType: 'json'
 })
 
-export default instance
+const courseInstance = axios.create({
+  baseURL: 'https://api.privatbank.ua/p24api/',
+  responseType: 'json'
+})
+
+export {courseInstance, instance}
