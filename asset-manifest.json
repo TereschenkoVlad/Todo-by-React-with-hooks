@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/Todo-by-React-with-hooks/static/css/main.f1932110.chunk.css",
-    "main.js": "/Todo-by-React-with-hooks/static/js/main.a2183cc1.chunk.js",
-    "main.js.map": "/Todo-by-React-with-hooks/static/js/main.a2183cc1.chunk.js.map",
+    "main.css": "/Todo-by-React-with-hooks/static/css/main.31aaf263.chunk.css",
+    "main.js": "/Todo-by-React-with-hooks/static/js/main.a185f591.chunk.js",
+    "main.js.map": "/Todo-by-React-with-hooks/static/js/main.a185f591.chunk.js.map",
     "runtime~main.js": "/Todo-by-React-with-hooks/static/js/runtime~main.2b4705ec.js",
     "runtime~main.js.map": "/Todo-by-React-with-hooks/static/js/runtime~main.2b4705ec.js.map",
     "static/css/2.065206df.chunk.css": "/Todo-by-React-with-hooks/static/css/2.065206df.chunk.css",
-    "static/js/2.58b487c8.chunk.js": "/Todo-by-React-with-hooks/static/js/2.58b487c8.chunk.js",
-    "static/js/2.58b487c8.chunk.js.map": "/Todo-by-React-with-hooks/static/js/2.58b487c8.chunk.js.map",
+    "static/js/2.6383fce7.chunk.js": "/Todo-by-React-with-hooks/static/js/2.6383fce7.chunk.js",
+    "static/js/2.6383fce7.chunk.js.map": "/Todo-by-React-with-hooks/static/js/2.6383fce7.chunk.js.map",
     "index.html": "/Todo-by-React-with-hooks/index.html",
-    "precache-manifest.b9968e09278885033167f6dc5bf99c93.js": "/Todo-by-React-with-hooks/precache-manifest.b9968e09278885033167f6dc5bf99c93.js",
+    "precache-manifest.93c51619b896927c3a14283cdf4f81bc.js": "/Todo-by-React-with-hooks/precache-manifest.93c51619b896927c3a14283cdf4f81bc.js",
     "service-worker.js": "/Todo-by-React-with-hooks/service-worker.js",
     "static/css/2.065206df.chunk.css.map": "/Todo-by-React-with-hooks/static/css/2.065206df.chunk.css.map",
-    "static/css/main.f1932110.chunk.css.map": "/Todo-by-React-with-hooks/static/css/main.f1932110.chunk.css.map",
+    "static/css/main.31aaf263.chunk.css.map": "/Todo-by-React-with-hooks/static/css/main.31aaf263.chunk.css.map",
     "static/media/slick-theme.css": "/Todo-by-React-with-hooks/static/media/slick.f97e3bbf.svg"
   }
 }
