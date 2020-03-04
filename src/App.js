@@ -8,7 +8,7 @@ import Footer from './components/Footer/footer'
 function App() {
     return (
       <div className="App">
-        <Router basename="/">
+        <Router basename={process.env.PUBLIC_URL}>
           <Switch>
             <Route exact path="/">
               <Header name={"ToDo On Every Day"}/>

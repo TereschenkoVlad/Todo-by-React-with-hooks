@@ -31,7 +31,7 @@ const AllItems = (props) => {
     if (props.type !== 'standard') {
       getCoursesList()
     }
-  }, [])
+  }, [props.type])
 
   let storePathCall = props.type === 'standard' ? state => state.tasks.tasks
     : state => state.tasks.shoppingList
