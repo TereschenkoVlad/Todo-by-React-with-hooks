@@ -16,7 +16,7 @@ const FilterLink = (props) => {
     return (
         <div className={"filter-button"}>
             <input onChange={checkPoint} checked={isChecked} type="radio" className="filter-point" id={props.buttonType}/>
-            <label htmlFor={props.buttonType} className={isChecked ? "filter-item-label active" : "filter-item-label"}><FontAwesomeIcon icon={faDotCircle}/>{props.buttonType}</label>
+            <label htmlFor={props.buttonType} className={isChecked ? "filter-item-label active" : "filter-item-label"}><FontAwesomeIcon icon={faDotCircle}/>{props.buttonName}</label>
         </div>
     )
 }
